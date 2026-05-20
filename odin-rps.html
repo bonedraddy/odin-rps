@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="rps-styles.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans" />
     <script src="rps-script.js" defer></script>
     <title>Odin RPS</title>
   </head>
   <body>
     <main>
       <h1>Welcome to Odin RPS!</h1>
-      <p class="intro">Rock Paper Scissors built with basic HTML, CSS, and JavaScript.</p>
-      <div id="game-container" class="hidden">
+      <p class="intro">
+        Rock Paper Scissors built with basic HTML, CSS, and JavaScript.
+      </p>
+      <div id="game-container">
         <p>Round <span id="current-round">1</span></p>
         <div class="choices" id="selections">
           <button class="choice-btn" id="r">Rock</button>
@@ -20,20 +24,21 @@
           <button class="choice-btn" id="s">Scissors</button>
         </div>
         <div id="play-container">
-          <button id="play-btn">Play</button>
-          <button id="reset-btn">Reset</button>
+          <button class="hidden" id="play-btn">Play</button>
+          <button class="hidden" id="reset-btn">Reset</button>
           <button id="end-btn">End Game</button>
         </div>
-        <div id="result">
-          <p class="result-text">You chose <span id="player-display"></span>. The System chose <span id="system-display"></span>. <span id="outcome-display"></span></p>
+        <div id="message-container">
+          <p id="message-text"></p>
         </div>
       </div>
-        <div class="scoreboard">
-            <p>Rounds: <span id="rounds">0</span></p>
-            <p>Wins: <span id="wins">0</span></p>
-            <p>Losses: <span id="losses">0</span></p>
-            <p>Draws: <span id="draws">0</span></p>
-        </div>
-        <p id="end-message"></p>
+      <div class="scoreboard">
+        <p>Rounds: <span id="rounds">0</span></p>
+        <p>Wins: <span id="wins">0</span></p>
+        <p>Losses: <span id="losses">0</span></p>
+        <p>Draws: <span id="draws">0</span></p>
+      </div>
+      <p id="end-message"></p>
+    </main>
   </body>
 </html>

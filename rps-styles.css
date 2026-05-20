@@ -12,3 +12,7 @@ body {
   background-color: #1f3756;
   color: #fff;
 }
+
+.hidden {
+  display: none;
+}
