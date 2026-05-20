@@ -25,13 +25,21 @@ const gameState = {
   roundResolved: false,
 };
 
+const gameContainer = document.querySelector("#game-container");
+const playContainer = document.querySelector("#play-container");
+const scoreboardContainer = document.querySelector("#scoreboard");
 const gameChoices = document.querySelector("#selections");
 const playBtn = document.querySelector("#play-btn");
 const resetBtn = document.querySelector("#reset-btn");
 const endBtn = document.querySelector("#end-btn");
 const messageTextP = document.querySelector("#message-text");
 const roundDisplaySpan = document.querySelector("#current-round");
-const endMessageP = document.querySelector("#end-message");
+//const scoreboard = document.querySelector(".scoreboard");
+const scoreboardSpans = {
+  wins: document.querySelector("#wins"),
+  losses: document.querySelector("#losses"),
+  ties: document.querySelector("#ties"),
+};
 
 //=============================
 // GAME PLAY
@@ -112,14 +120,15 @@ function resetRound(event) {
 }
 
 function endGame(event) {
-  endMessageP.textContent = `Thanks for playing! To play again, just refresh the page.`;
-  gameState.roundNumber = 1;
-  gameState.wins = 0;
-  gameState.losses = 0;
-  gameState.ties = 0;
-  gameState.playerChoice = "";
-  gameState.systemChoice = "";
-  gameState.roundOutcome = "";
+  messageTextP.textContent = `Thanks for playing! 
+  Final Score:
+  Wins: ${gameState.wins}
+  Losses: ${gameState.losses}
+  Ties: ${gameState.ties}
+  To play again, just refresh the page.`;
+  gameContainer.classList.add("hidden");
+  playContainer.classList.add("hidden");
+  scoreboardContainer.classList.add("hidden");
   console.log("Game ended.");
   console.log(gameState);
 }
