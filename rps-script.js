@@ -29,6 +29,7 @@ const gameContainer = document.querySelector("#game-container");
 const playContainer = document.querySelector("#play-container");
 const scoreboardContainer = document.querySelector("#scoreboard");
 const gameChoices = document.querySelector("#selections");
+const choiceButtons = document.querySelectorAll(".choice-btn");
 const playBtn = document.querySelector("#play-btn");
 const resetBtn = document.querySelector("#reset-btn");
 const endBtn = document.querySelector("#end-btn");
@@ -52,9 +53,7 @@ playBtn.addEventListener("click", () => {
   playRound(gameState.playerChoice, gameState.systemChoice);
 });
 
-resetBtn.addEventListener("click", () => {
-  resetRound();
-});
+resetBtn.addEventListener("click", resetRound);
 
 endBtn.addEventListener("click", endGame);
 
@@ -73,6 +72,10 @@ function logPlayerChoice(event) {
   gameState.playerChoice = event.target.id;
   gameState.selectionMade = true;
   playBtn.classList.remove("hidden");
+  choiceButtons.forEach((btn) => {
+    btn.classList.remove("selected");
+  });
+  event.target.classList.add("selected");
   UpdateMessageText();
   console.log(
     `Player choice logged: ${gameState.playerChoice}. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
@@ -113,6 +116,9 @@ function resetRound(event) {
   gameState.roundResolved = false;
   playBtn.classList.add("hidden");
   resetBtn.classList.add("hidden");
+  choiceButtons.forEach((btn) => {
+    btn.classList.remove("selected");
+  });
   UpdateMessageText();
   console.log(
     `Round reset. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
@@ -127,7 +133,6 @@ function endGame(event) {
   Ties: ${gameState.ties}
   To play again, just refresh the page.`;
   gameContainer.classList.add("hidden");
-  playContainer.classList.add("hidden");
   scoreboardContainer.classList.add("hidden");
   console.log("Game ended.");
   console.log(gameState);

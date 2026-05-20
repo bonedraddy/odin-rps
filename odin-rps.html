@@ -12,27 +12,28 @@
   </head>
   <body>
     <main>
-      <h1>Welcome to Odin RPS!</h1>
-      <p class="intro">
-        Rock Paper Scissors built with basic HTML, CSS, and JavaScript.
-      </p>
+      <div class="intro-container">
+        <h1>Welcome to Odin RPS!</h1>
+        <p>Rock Paper Scissors built with basic HTML, CSS, and JavaScript.</p>
+      </div>
       <div id="game-container">
-        <p>Round <span id="current-round">1</span></p>
-        <div class="choices" id="selections">
+        <div class="choices-container" id="selections">
           <button class="choice-btn" id="r">Rock</button>
           <button class="choice-btn" id="p">Paper</button>
           <button class="choice-btn" id="s">Scissors</button>
         </div>
+        <div id="play-container">
+          <button class="hidden" id="play-btn">Play</button>
+          <button class="hidden" id="reset-btn">Reset</button>
+          <button id="end-btn">End Game</button>
+        </div>
       </div>
-      <div id="play-container">
-        <button class="hidden" id="play-btn">Play</button>
-        <button class="hidden" id="reset-btn">Reset</button>
-        <button id="end-btn">End Game</button>
-      </div>
+
       <div id="message-container">
         <p id="message-text"></p>
       </div>
       <div class="scoreboard-container" id="scoreboard">
+        <p>Round <span id="current-round">1</span></p>
         <p>Rounds: <span id="rounds">0</span></p>
         <p>Wins: <span id="wins">0</span></p>
         <p>Losses: <span id="losses">0</span></p>
