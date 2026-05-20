@@ -26,29 +26,27 @@ const gameState = {
 //=============================
 // GAME PLAY
 //=============================
-/*const rockBtn = document.querySelector("#r");
-rockBtn.addEventListener("click", (event) => {
-  let playerInput = event.target.id;
-  gameState.playerChoice = playerInput;
-  console.log(gameState.playerChoice);
-});*/
 
 const gameChoices = document.querySelector("#selections");
 const playBtn = document.querySelector("#play-btn");
+const endBtn = document.querySelector("#end-btn");
+const roundDisplaySpan = document.querySelector("#current-round");
 const playerChoiceSpan = document.querySelector("#player-display");
 const systemChoiceSpan = document.querySelector("#system-display");
-gameChoices.addEventListener("click", logPlayerChoice);
-playBtn.addEventListener("click", generateSystemChoice);
-//let gameChoices = document.querySelector("#selections");
-//gameState.playerChoice = gameChoices.addEventListener("click", function (e) {
-//  console.log(e.target);
-//});
+const outcomeDisplaySpan = document.querySelector("#outcome-display");
+const endMessageP = document.querySelector("#end-message");
 
-//console.log(gameState.playerChoice);
-//let displayPlayerChoice = document.getElementById("player-display");
-//displayPlayerChoice.textContent = choiceDisplay.get(gameState.playerChoice);
-//let playBtn = document.querySelector("#play-btn");
-//playBtn.addEventListener("click", systemChoiceGenerator);
+gameChoices.addEventListener("click", logPlayerChoice);
+
+playBtn.addEventListener("click", () => {
+  generateSystemChoice();
+  playRound(gameState.playerChoice, gameState.systemChoice);
+  displayOutcome();
+  gameState.roundNumber++;
+  roundDisplaySpan.textContent = gameState.roundNumber;
+});
+
+endBtn.addEventListener("click", endGame);
 
 //=============================
 // FUNCTIONS
@@ -58,34 +56,44 @@ function generateSystemChoice(event) {
   const options = ["r", "p", "s"];
   let systemInput = options[Math.floor(Math.random() * options.length)];
   gameState.systemChoice = systemInput;
-  systemChoiceSpan.textContent = choiceDisplay.get(gameState.systemChoice);
-  console.log(gameState.systemChoice);
 }
 
 function logPlayerChoice(event) {
-  let playerInput = event.target.id;
-  gameState.playerChoice = playerInput;
+  gameState.playerChoice = event.target.id;
+}
+
+function displayOutcome(event) {
+  systemChoiceSpan.textContent = choiceDisplay.get(gameState.systemChoice);
   playerChoiceSpan.textContent = choiceDisplay.get(gameState.playerChoice);
-  console.log(gameState.playerChoice);
+  outcomeDisplaySpan.textContent = resultDisplay.get(gameState.roundOutcome);
+  console.log(gameState);
 }
 
 function playRound(playerInput, systemInput) {
-  let outcome;
   if (playerInput === systemInput) {
-    outcome = "t";
+    gameState.roundOutcome = "t";
     gameState.ties++;
-    return outcome;
   } else if (
     (playerInput === "r" && systemInput === "s") ||
     (playerInput === "p" && systemInput === "r") ||
     (playerInput === "s" && systemInput === "p")
   ) {
-    outcome = "w";
+    gameState.roundOutcome = "w";
     gameState.wins++;
-    return outcome;
   } else {
-    outcome = "l";
+    gameState.roundOutcome = "l";
     gameState.losses++;
-    return outcome;
   }
+}
+
+function endGame(event) {
+  endMessageP.textContent = `Thanks for playing!`;
+  gameState.roundNumber = 1;
+  gameState.wins = 0;
+  gameState.losses = 0;
+  gameState.ties = 0;
+  gameState.playerChoice = "";
+  gameState.systemChoice = "";
+  gameState.roundOutcome = "";
+  console.log(gameState);
 }
