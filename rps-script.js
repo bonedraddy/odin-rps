@@ -18,6 +18,10 @@ const gameState = {
   wins: 0,
   losses: 0,
   ties: 0,
+  get winPct() {
+    const totalGames = this.wins + this.losses + this.ties;
+    return totalGames > 0 ? Math.round((this.wins / totalGames) * 100) : "0.00";
+  },
   playerChoice: "",
   systemChoice: "",
   roundOutcome: "",
@@ -35,11 +39,11 @@ const resetBtn = document.querySelector("#reset-btn");
 const endBtn = document.querySelector("#end-btn");
 const messageTextP = document.querySelector("#message-text");
 const roundDisplaySpan = document.querySelector("#current-round");
-//const scoreboard = document.querySelector(".scoreboard");
 const scoreboardSpans = {
   wins: document.querySelector("#wins"),
   losses: document.querySelector("#losses"),
   ties: document.querySelector("#ties"),
+  winPct: document.querySelector("#win-pct"),
 };
 
 //=============================
@@ -51,6 +55,7 @@ gameChoices.addEventListener("click", logPlayerChoice);
 playBtn.addEventListener("click", () => {
   generateSystemChoice();
   playRound(gameState.playerChoice, gameState.systemChoice);
+  updateScoreboard();
 });
 
 resetBtn.addEventListener("click", resetRound);
@@ -102,7 +107,7 @@ function playRound(playerInput, systemInput) {
   resetBtn.classList.remove("hidden");
   UpdateMessageText();
   console.log(
-    `Round played. Outcome: ${gameState.roundOutcome}. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
+    `Round played. Score updated. Outcome: ${gameState.roundOutcome}. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
   );
 }
 
@@ -126,7 +131,7 @@ function resetRound(event) {
 }
 
 function endGame(event) {
-  messageTextP.textContent = `Thanks for playing! 
+  messageTextP.textContent = `GAME OVER
   Final Score:
   Wins: ${gameState.wins}
   Losses: ${gameState.losses}
@@ -149,4 +154,11 @@ function UpdateMessageText() {
   } else {
     messageTextP.textContent = "Please make a selection to play.";
   }
+}
+
+function updateScoreboard() {
+  scoreboardSpans.wins.textContent = gameState.wins;
+  scoreboardSpans.losses.textContent = gameState.losses;
+  scoreboardSpans.ties.textContent = gameState.ties;
+  scoreboardSpans.winPct.textContent = gameState.winPct;
 }
