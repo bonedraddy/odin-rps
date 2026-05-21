@@ -16,29 +16,57 @@
         <h1>Welcome to Odin RPS!</h1>
         <p>Rock Paper Scissors built with basic HTML, CSS, and JavaScript.</p>
       </div>
-      <div id="game-container">
-        <div class="choices-container" id="selections">
-          <button class="choice-btn" id="r">Rock</button>
-          <button class="choice-btn" id="p">Paper</button>
-          <button class="choice-btn" id="s">Scissors</button>
+      <!-- GAME CONTAINER -->
+      <div class="game">
+        <!-- BUTTONS CONTAINER -->
+        <div data-endView="hide" class="buttons-container">
+          <!-- CHOICE BUTTONS -->
+          <div class="choices-container" id="selections">
+            <button class="choice-btn" id="r">Rock</button>
+            <button class="choice-btn" id="p">Paper</button>
+            <button class="choice-btn" id="s">Scissors</button>
+          </div>
+          <!-- PLAY/RESET/END BUTTONS -->
+          <div class="controls-container">
+            <button class="control-btn" id="play-btn">Play</button>
+            <button class="control-btn" id="reset-btn">Reset</button>
+            <button class="control-btn" id="end-btn">End Game</button>
+          </div>
         </div>
-        <div id="play-container">
-          <button class="hidden" id="play-btn">Play</button>
-          <button class="hidden" id="reset-btn">Reset</button>
-          <button id="end-btn">End Game</button>
-        </div>
-      </div>
+        <!-- DISPLAYS CONTAINER -->
+        <div class="displays-container">
+          <!-- MESSAGE DISPLAY -->
+          <div class="message-container">
+            <p class="message" id="round-number">
+              Round <span class="round-label" id="round-value">1</span>
+            </p>
+            <p class="message" id="message-text"></p>
+          </div>
+          <!--SCOREBOARD -->
+          <div class="scoreboard-container">
+            <div class="sbCard">
+              <span class="sbLabel">WINS:</span>
+              <span class="sbValue" id="wins">1</span>
+            </div>
 
-      <div id="message-container">
-        <p id="message-text"></p>
+            <div class="sbCard">
+              <span class="sbLabel">LOSSES:</span>
+              <span class="sbValue" id="losses">1</span>
+            </div>
+
+            <div class="sbCard">
+              <span class="sbLabel">DRAWS:</span>
+              <span class="sbValue" id="ties">1</span>
+            </div>
+
+            <div class="sbCard">
+              <span class="sbLabel">WIN PCT:</span>
+              <span class="sbValue" id="win-pct">50</span>%
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="scoreboard-container" id="scoreboard">
-        <p>Round <span id="current-round">1</span></p>
-        <p>Wins: <span id="wins">0</span></p>
-        <p>Losses: <span id="losses">0</span></p>
-        <p>Draws: <span id="ties">0</span></p>
-        <p>Win Pct: <span id="win-pct">0</span>%</p>
-      </div>
+      <!-- END GAME CONTAINER -->
     </main>
   </body>
 </html>
