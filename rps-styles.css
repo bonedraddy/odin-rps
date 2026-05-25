@@ -18,6 +18,10 @@ body {
   display: none;
 }
 
+#message-text {
+  white-space: pre-line;
+}
+
 /*------ Intro ----- */
 .intro-container {
   text-align: center;

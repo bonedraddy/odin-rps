@@ -29,16 +29,25 @@ const gameState = {
   roundResolved: false,
 };
 
+//=============================
+// DOM ELEMENTS
+//=============================
+
+// Containers
 const gameContainer = document.querySelector("#game-container");
-const playContainer = document.querySelector("#play-container");
+const buttonsContainer = document.querySelector(".buttons-container");
+const choicesContainer = document.querySelector("#selections");
 const scoreboardContainer = document.querySelector("#scoreboard");
-const gameChoices = document.querySelector("#selections");
+
+// Buttons
 const choiceButtons = document.querySelectorAll(".choice-btn");
-const playBtn = document.querySelector("#play-btn");
-const resetBtn = document.querySelector("#reset-btn");
-const endBtn = document.querySelector("#end-btn");
-const messageTextP = document.querySelector("#message-text");
-const roundDisplaySpan = document.querySelector("#current-round");
+const submitBtn = document.querySelector("#submit");
+const resetBtn = document.querySelector("#reset");
+const endBtn = document.querySelector("#end");
+
+// Displays
+const roundDisplaySpan = document.querySelector("#round-value");
+const displayMessage = document.querySelector("#message-text");
 const scoreboardSpans = {
   wins: document.querySelector("#wins"),
   losses: document.querySelector("#losses"),
@@ -47,12 +56,12 @@ const scoreboardSpans = {
 };
 
 //=============================
-// GAME PLAY
+// EVENT LISTENERS
 //=============================
 
-gameChoices.addEventListener("click", logPlayerChoice);
+choicesContainer.addEventListener("click", logPlayerChoice);
 
-playBtn.addEventListener("click", () => {
+submitBtn.addEventListener("click", () => {
   generateSystemChoice();
   playRound(gameState.playerChoice, gameState.systemChoice);
   updateScoreboard();
@@ -62,32 +71,38 @@ resetBtn.addEventListener("click", resetRound);
 
 endBtn.addEventListener("click", endGame);
 
+// Initial UI State
+updateDisplayMessage();
+updateScoreboard();
+
 //=============================
 // FUNCTIONS
 //=============================
 
 function generateSystemChoice(event) {
   const options = ["r", "p", "s"];
-  let systemInput = options[Math.floor(Math.random() * options.length)];
+  const systemInput = options[Math.floor(Math.random() * options.length)];
   gameState.systemChoice = systemInput;
   console.log(`System choice generated: ${gameState.systemChoice}`);
 }
 
 function logPlayerChoice(event) {
+  if (!event.target.classList.contains("choice-btn")) return;
+
   gameState.playerChoice = event.target.id;
   gameState.selectionMade = true;
-  playBtn.classList.remove("hidden");
-  choiceButtons.forEach((btn) => {
-    btn.classList.remove("selected");
-  });
+  gameState.roundResolved = false;
+  submitBtn.classList.remove("hidden");
+  choiceButtons.forEach((btn) => btn.classList.remove("selected"));
   event.target.classList.add("selected");
-  UpdateMessageText();
+  updateDisplayMessage();
   console.log(
     `Player choice logged: ${gameState.playerChoice}. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
   );
 }
 
 function playRound(playerInput, systemInput) {
+  if (!gameState.selectionMade || gameState.roundResolved) return;
   if (playerInput === systemInput) {
     gameState.roundOutcome = "t";
     gameState.ties++;
@@ -103,9 +118,9 @@ function playRound(playerInput, systemInput) {
     gameState.losses++;
   }
   gameState.roundResolved = true;
-  playBtn.classList.add("hidden");
+  submitBtn.classList.add("hidden");
   resetBtn.classList.remove("hidden");
-  UpdateMessageText();
+  updateDisplayMessage();
   console.log(
     `Round played. Score updated. Outcome: ${gameState.roundOutcome}. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
   );
@@ -113,46 +128,53 @@ function playRound(playerInput, systemInput) {
 
 function resetRound(event) {
   gameState.roundNumber++;
-  roundDisplaySpan.textContent = gameState.roundNumber;
   gameState.playerChoice = "";
   gameState.systemChoice = "";
   gameState.roundOutcome = "";
   gameState.selectionMade = false;
   gameState.roundResolved = false;
-  playBtn.classList.add("hidden");
+  roundDisplaySpan.textContent = gameState.roundNumber;
+  submitBtn.classList.add("hidden");
   resetBtn.classList.add("hidden");
-  choiceButtons.forEach((btn) => {
-    btn.classList.remove("selected");
-  });
-  UpdateMessageText();
+  choiceButtons.forEach((btn) => btn.classList.remove("selected"));
+  updateDisplayMessage();
   console.log(
     `Round reset. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
   );
 }
 
 function endGame(event) {
-  messageTextP.textContent = `GAME OVER
+  displayMessage.textContent = `GAME OVER
   Final Score:
-  Wins: ${gameState.wins}
-  Losses: ${gameState.losses}
-  Ties: ${gameState.ties}
-  To play again, just refresh the page.`;
-  gameContainer.classList.add("hidden");
+  Total Rounds: ${gameState.roundNumber - 1}
+  W/D/L: ${gameState.wins}/${gameState.ties}/${gameState.losses}
+  Win Pct: ${gameState.winPct}%
+  See you next time!
+  Refresh the page to play again.`;
+  scoreboardSpans.wins.textContent = 0;
+  scoreboardSpans.losses.textContent = 0;
+  scoreboardSpans.ties.textContent = 0;
+  scoreboardSpans.winPct.textContent = 0;
+  buttonsContainer.classList.add("hidden");
   scoreboardContainer.classList.add("hidden");
   console.log("Game ended.");
   console.log(gameState);
 }
 
-function UpdateMessageText() {
+function updateDisplayMessage() {
   if (gameState.selectionMade === true && gameState.roundResolved === false) {
-    messageTextP.textContent = "Click Play.";
+    displayMessage.textContent = "Click Submit.";
   } else if (
     gameState.selectionMade === true &&
     gameState.roundResolved === true
   ) {
-    messageTextP.textContent = `You chose ${choiceDisplay.get(gameState.playerChoice)}. I chose ${choiceDisplay.get(gameState.systemChoice)}. ${resultDisplay.get(gameState.roundOutcome)}`;
+    displayMessage.textContent = `You chose ${choiceDisplay.get(
+      gameState.playerChoice,
+    )}. I chose ${choiceDisplay.get(
+      gameState.systemChoice,
+    )}. ${resultDisplay.get(gameState.roundOutcome)}`;
   } else {
-    messageTextP.textContent = "Please make a selection to play.";
+    displayMessage.textContent = "Please make a selection to play.";
   }
 }
 

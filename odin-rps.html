@@ -17,7 +17,7 @@
         <p>Rock Paper Scissors built with basic HTML, CSS, and JavaScript.</p>
       </div>
       <!-- GAME CONTAINER -->
-      <div class="game">
+      <div id="game-container">
         <!-- BUTTONS CONTAINER -->
         <div data-endView="hide" class="buttons-container">
           <!-- CHOICE BUTTONS -->
@@ -28,9 +28,9 @@
           </div>
           <!-- PLAY/RESET/END BUTTONS -->
           <div class="controls-container">
-            <button class="control-btn" id="play-btn">Play</button>
-            <button class="control-btn" id="reset-btn">Reset</button>
-            <button class="control-btn" id="end-btn">End Game</button>
+            <button class="control-btn hidden" id="submit">Submit</button>
+            <button class="control-btn hidden" id="reset">Reset</button>
+            <button class="control-btn" id="end">End Game</button>
           </div>
         </div>
         <!-- DISPLAYS CONTAINER -->
@@ -40,7 +40,7 @@
             <p class="message" id="round-number">
               Round <span class="round-label" id="round-value">1</span>
             </p>
-            <p class="message" id="message-text"></p>
+            <p class="message" id="message-text">Display message goes here.</p>
           </div>
           <!--SCOREBOARD -->
           <div class="scoreboard-container">
