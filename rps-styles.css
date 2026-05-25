@@ -18,6 +18,20 @@ body {
   font-family: var(--primary-font);
 }
 
+.hidden {
+  display: none;
+}
+
+#message-text {
+  white-space: pre-line;
+}
+
+h1 {
+  font-size: 6rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
 :root {
   --primary-background: #dde0bd;
   --primary-black: #3a3a39;
@@ -28,7 +42,12 @@ body {
   --accent-font: "Cairopixel", sans-serif;
 }
 
-/*------ Container Layout ------*/
+/*------ Containers ------*/
+.intro-container {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 2rem;
+}
 
 #game-container {
   display: grid;
@@ -49,7 +68,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  background-color: aliceblue;
 }
 
 .choices-container {
@@ -58,11 +76,9 @@ body {
   align-items: stretch;
   justify-content: space-between;
   padding: 0 30px;
-  background-color: pink;
 }
 
 .displays-container {
-  border: 2px solid purple;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
@@ -70,8 +86,8 @@ body {
 }
 
 .message-container {
-  border: 2px solid green;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: 2px solid #bdbdbd;
   background-color: var(--primary-black);
   color: var(--accent-neutral);
   padding: 20px;
@@ -86,30 +102,9 @@ body {
 .scoreboard-container {
   border: 4px solid #72706f;
   background-color: var(--accent-blue);
-  border-radius: 5px;
+  border-radius: 10px;
   color: var(--primary-white);
   font-size: 2rem;
-}
-
-.hidden {
-  display: none;
-}
-
-#message-text {
-  white-space: pre-line;
-}
-
-/*------ Intro ----- */
-.intro-container {
-  text-align: center;
-  padding: 20px 0;
-  background-color: var(--accent-neutral);
-}
-
-h1 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
 }
 
 /*------ Choice Buttons ------*/
@@ -145,7 +140,7 @@ h1 {
   align-self: center;
   width: 50%;
   height: 10%;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 3px solid #9a2a26;
   cursor: pointer;
   font-size: 2rem;
@@ -163,7 +158,7 @@ h1 {
   color: #234333;
   width: 25%;
   height: 20%;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 4px solid #5aaa82;
   cursor: pointer;
   font-size: 2rem;
@@ -180,7 +175,7 @@ h1 {
   color: #474039;
   width: 25%;
   height: 20%;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 4px solid #998c80;
   cursor: pointer;
   font-size: 2rem;
