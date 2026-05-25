@@ -156,7 +156,6 @@ function endGame(event) {
   scoreboardSpans.ties.textContent = 0;
   scoreboardSpans.winPct.textContent = 0;
   buttonsContainer.classList.add("hidden");
-  scoreboardContainer.classList.add("hidden");
   console.log("Game ended.");
   console.log(gameState);
 }
