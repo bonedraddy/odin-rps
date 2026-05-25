@@ -20,7 +20,7 @@ const gameState = {
   ties: 0,
   get winPct() {
     const totalGames = this.wins + this.losses + this.ties;
-    return totalGames > 0 ? Math.round((this.wins / totalGames) * 100) : "0.00";
+    return totalGames > 0 ? Math.round((this.wins / totalGames) * 100) : "0";
   },
   playerChoice: "",
   systemChoice: "",
