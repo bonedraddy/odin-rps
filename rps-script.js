@@ -88,6 +88,7 @@ function generateSystemChoice(event) {
 
 function logPlayerChoice(event) {
   if (!event.target.classList.contains("choice-btn")) return;
+  if (gameState.roundResolved) return;
 
   gameState.playerChoice = event.target.id;
   gameState.selectionMade = true;
@@ -118,6 +119,14 @@ function playRound(playerInput, systemInput) {
     gameState.losses++;
   }
   gameState.roundResolved = true;
+  choiceButtons.forEach((btn) => {
+    if (btn.id === gameState.playerChoice) {
+      btn.classList.remove("selected");
+      btn.classList.add("locked");
+    } else {
+      btn.classList.add("hidden");
+    }
+  });
   submitBtn.classList.add("hidden");
   resetBtn.classList.remove("hidden");
   updateDisplayMessage();
@@ -136,7 +145,11 @@ function resetRound(event) {
   roundDisplaySpan.textContent = gameState.roundNumber;
   submitBtn.classList.add("hidden");
   resetBtn.classList.add("hidden");
-  choiceButtons.forEach((btn) => btn.classList.remove("selected"));
+  choiceButtons.forEach((btn) => {
+    btn.classList.remove("hidden");
+    btn.classList.remove("selected");
+    btn.classList.remove("locked");
+  });
   updateDisplayMessage();
   console.log(
     `Round reset. Selection made: ${gameState.selectionMade}. Round resolved: ${gameState.roundResolved}.`,
